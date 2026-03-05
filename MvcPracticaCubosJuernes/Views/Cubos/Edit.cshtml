@@ -1,0 +1,52 @@
+@model MvcPracticaCubosJuernes.Models.Cubo
+
+@{
+    ViewData["Title"] = "Editar Cubo";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="display-4 mb-4">Editar Cubo</h1>
+        
+        <form asp-action="Edit" method="post" enctype="multipart/form-data" class="card p-4 shadow">
+            <input type="hidden" name="IdCubo" value="@Model.IdCubo" />
+            <input type="hidden" name="Imagen" value="@Model.Imagen" />
+            
+            <div class="mb-3">
+                <label class="form-label">Nombre del Cubo</label>
+                <input type="text" name="Nombre" class="form-control" value="@Model.Nombre" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Modelo</label>
+                <input type="text" name="Modelo" class="form-control" value="@Model.Modelo" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Marca</label>
+                <input type="text" name="Marca" class="form-control" value="@Model.Marca" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Precio (€)</label>
+                <input type="number" name="Precio" class="form-control" value="@Model.Precio" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Imagen Actual</label><br/>
+                <img src="@Model.Imagen" alt="@Model.Nombre" style="max-width: 200px;" class="img-thumbnail mb-2" onerror="this.src='/images/cubos/default.jpg'" />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Nueva Imagen (opcional)</label>
+                <input type="file" name="imagen" class="form-control" accept="image/*" />
+                <small class="form-text text-muted">Si no seleccionas una imagen, se mantendrá la actual</small>
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-warning">?? Actualizar Cubo</button>
+                <a asp-action="Index" class="btn btn-secondary">? Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

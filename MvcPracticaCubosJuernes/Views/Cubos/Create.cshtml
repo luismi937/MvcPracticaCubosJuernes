@@ -1,0 +1,44 @@
+@model MvcPracticaCubosJuernes.Models.Cubo
+
+@{
+    ViewData["Title"] = "Crear Cubo";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="display-4 mb-4">Crear Nuevo Cubo</h1>
+        
+        <form asp-action="Create" method="post" enctype="multipart/form-data" class="card p-4 shadow">
+            <div class="mb-3">
+                <label class="form-label">Nombre del Cubo</label>
+                <input type="text" name="Nombre" class="form-control" placeholder="Ej: Megaminx" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Modelo</label>
+                <input type="text" name="Modelo" class="form-control" placeholder="Ej: 2x2x2, 3x3x3, Pyraminx" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Marca</label>
+                <input type="text" name="Marca" class="form-control" placeholder="Ej: MoYu, GAN, QiYi" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Precio (€)</label>
+                <input type="number" name="Precio" class="form-control" placeholder="0" required />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Imagen del Cubo</label>
+                <input type="file" name="imagen" class="form-control" accept="image/*" />
+                <small class="form-text text-muted">Selecciona una imagen para el cubo (opcional)</small>
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-success">?? Guardar Cubo</button>
+                <a asp-action="Index" class="btn btn-secondary">? Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

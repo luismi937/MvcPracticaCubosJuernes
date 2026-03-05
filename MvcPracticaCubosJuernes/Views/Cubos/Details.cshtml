@@ -1,0 +1,40 @@
+@model MvcPracticaCubosJuernes.Models.Cubo
+
+@{
+    ViewData["Title"] = "Detalles del Cubo";
+}
+
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <h1 class="display-4">Detalles del Cubo</h1>
+        <a asp-action="Index" class="btn btn-secondary">?? Volver al Listado</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="@Model.Imagen" class="img-fluid rounded shadow" alt="@Model.Nombre" onerror="this.src='/images/cubos/default.jpg'">
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">@Model.Nombre</h2>
+                <hr/>
+                <p class="card-text">
+                    <strong>ID:</strong> @Model.IdCubo<br/>
+                    <strong>Modelo:</strong> @Model.Modelo<br/>
+                    <strong>Marca:</strong> @Model.Marca<br/>
+                    <strong>Precio:</strong> <span class="text-success fw-bold fs-3">@Model.Precio €</span>
+                </p>
+                
+                <div class="mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model.IdCubo" class="btn btn-warning">?? Editar</a>
+                    <a asp-controller="Carrito" asp-action="Agregar" asp-route-id="@Model.IdCubo" class="btn btn-success">?? Agregar al Carrito</a>
+                    <a asp-action="AgregarFavorito" asp-route-id="@Model.IdCubo" class="btn btn-outline-warning">? Favorito</a>
+                    <a asp-action="Delete" asp-route-id="@Model.IdCubo" class="btn btn-danger" 
+                       onclick="return confirm('¿Estás seguro de eliminar este cubo?')">??? Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

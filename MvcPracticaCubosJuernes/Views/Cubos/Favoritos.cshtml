@@ -1,0 +1,50 @@
+@model List<MvcPracticaCubosJuernes.Models.Cubo>
+
+@{
+    ViewData["Title"] = "Favoritos";
+}
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1 class="display-4">? Mis Cubos Favoritos</h1>
+        <a asp-action="Index" class="btn btn-secondary">?? Volver al Catálogo</a>
+    </div>
+</div>
+
+@if (Model.Count > 0)
+{
+    <div class="row">
+        @foreach (var cubo in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-warning">
+                    <div class="position-absolute top-0 end-0 m-2">
+                        <span class="badge bg-warning text-dark">? Favorito</span>
+                    </div>
+                    <img src="@cubo.Imagen" class="card-img-top" alt="@cubo.Nombre" style="height: 250px; object-fit: cover;" onerror="this.src='/images/cubos/default.jpg'">
+                    <div class="card-body">
+                        <h5 class="card-title">@cubo.Nombre</h5>
+                        <p class="card-text">
+                            <strong>Modelo:</strong> @cubo.Modelo<br/>
+                            <strong>Marca:</strong> @cubo.Marca<br/>
+                            <strong>Precio:</strong> <span class="text-success fw-bold">@cubo.Precio €</span>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a asp-action="Details" asp-route-id="@cubo.IdCubo" class="btn btn-primary btn-sm">?? Detalles</a>
+                        <a asp-controller="Carrito" asp-action="Agregar" asp-route-id="@cubo.IdCubo" class="btn btn-success btn-sm">?? Añadir</a>
+                        <a asp-action="EliminarFavorito" asp-route-id="@cubo.IdCubo" class="btn btn-danger btn-sm">? Quitar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <h4>No tienes cubos favoritos</h4>
+        <p>Explora nuestro catálogo y marca tus cubos preferidos como favoritos.</p>
+        <a asp-action="Index" class="btn btn-primary">Ver Catálogo</a>
+    </div>
+}

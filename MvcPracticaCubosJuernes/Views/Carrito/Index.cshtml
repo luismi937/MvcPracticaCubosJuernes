@@ -1,0 +1,99 @@
+@model List<MvcPracticaCubosJuernes.Models.CarritoItem>
+
+@{
+    ViewData["Title"] = "Carrito de Compras";
+    int total = Model.Sum(x => x.Subtotal);
+}
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1 class="display-4">?? Carrito de Compras</h1>
+        <a asp-controller="Cubos" asp-action="Index" class="btn btn-secondary">?? Seguir Comprando</a>
+    </div>
+</div>
+
+@if (Model.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Producto</th>
+                                <th>Marca</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@item.Cubo.Imagen" alt="@item.Cubo.Nombre" style="width: 80px; height: 80px; object-fit: cover;" class="rounded" onerror="this.src='/images/cubos/default.jpg'">
+                                    </td>
+                                    <td class="align-middle">@item.Cubo.Nombre</td>
+                                    <td class="align-middle">@item.Cubo.Modelo</td>
+                                    <td class="align-middle">@item.Cubo.Marca</td>
+                                    <td class="align-middle">@item.Cubo.Precio €</td>
+                                    <td class="align-middle">
+                                        <span class="badge bg-info text-dark">@item.Cantidad</span>
+                                    </td>
+                                    <td class="align-middle fw-bold text-success">@item.Subtotal €</td>
+                                    <td class="align-middle">
+                                        <a asp-action="Eliminar" asp-route-id="@item.Cubo.IdCubo" 
+                                           class="btn btn-danger btn-sm" 
+                                           onclick="return confirm('¿Eliminar este producto del carrito?')">
+                                            ??? Eliminar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Resumen de Compra</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Productos:</span>
+                        <strong>@Model.Count</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total Unidades:</span>
+                        <strong>@Model.Sum(x => x.Cantidad)</strong>
+                    </div>
+                    <hr/>
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5>Total:</h5>
+                        <h5 class="text-success fw-bold">@total €</h5>
+                    </div>
+                    
+                    <a asp-action="FinalizarCompra" class="btn btn-success w-100 btn-lg" 
+                       onclick="return confirm('¿Confirmar la compra?')">
+                        ?? Finalizar Compra
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        <h4>Tu carrito está vacío</h4>
+        <p>No tienes productos en el carrito. Explora nuestro catálogo y añade tus cubos favoritos.</p>
+        <a asp-controller="Cubos" asp-action="Index" class="btn btn-primary">Ver Catálogo</a>
+    </div>
+}
