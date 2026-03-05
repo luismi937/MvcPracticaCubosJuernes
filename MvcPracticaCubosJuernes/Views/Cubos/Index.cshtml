@@ -7,29 +7,33 @@
 <div class="row mb-4">
     <div class="col-md-12">
         <h1 class="display-4">Catálogo de Cubos de Rubik</h1>
-        <a asp-action="Create" class="btn btn-success">? Agregar Nuevo Cubo</a>
+        <a asp-action="Create" class="btn btn-success">Agregar Nuevo Cubo</a>
     </div>
 </div>
 
 <div class="row">
     @foreach (var cubo in Model)
     {
+        var imagenUrl = string.IsNullOrEmpty(cubo.Imagen) || cubo.Imagen.StartsWith("/") 
+            ? (cubo.Imagen ?? "/images/cubos/default.jpg") 
+            : $"/images/cubos/{cubo.Imagen}";
+        
         <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm">
-                <img src="@cubo.Imagen" class="card-img-top" alt="@cubo.Nombre" style="height: 250px; object-fit: cover;" onerror="this.src='/images/cubos/default.jpg'">
+                <img src="@imagenUrl" class="card-img-top" alt="@cubo.Nombre" style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">@cubo.Nombre</h5>
                     <p class="card-text">
                         <strong>Modelo:</strong> @cubo.Modelo<br/>
                         <strong>Marca:</strong> @cubo.Marca<br/>
-                        <strong>Precio:</strong> <span class="text-success fw-bold">@cubo.Precio €</span>
+                        <strong>Precio:</strong> <span class="text-success fw-bold">@cubo.Precio Euros</span>
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a asp-action="Details" asp-route-id="@cubo.IdCubo" class="btn btn-primary btn-sm">?? Detalles</a>
-                    <a asp-action="Edit" asp-route-id="@cubo.IdCubo" class="btn btn-warning btn-sm">?? Editar</a>
-                    <a asp-controller="Carrito" asp-action="Agregar" asp-route-id="@cubo.IdCubo" class="btn btn-info btn-sm">?? Añadir</a>
-                    <a asp-action="AgregarFavorito" asp-route-id="@cubo.IdCubo" class="btn btn-outline-warning btn-sm">?</a>
+                    <a asp-action="Details" asp-route-id="@cubo.IdCubo" class="btn btn-primary btn-sm">Detalles</a>
+                    <a asp-action="Edit" asp-route-id="@cubo.IdCubo" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-controller="Carrito" asp-action="Agregar" asp-route-id="@cubo.IdCubo" class="btn btn-info btn-sm">Anadir</a>
+                    <a asp-action="AgregarFavorito" asp-route-id="@cubo.IdCubo" class="btn btn-outline-warning btn-sm">Favorito</a>
                 </div>
             </div>
         </div>

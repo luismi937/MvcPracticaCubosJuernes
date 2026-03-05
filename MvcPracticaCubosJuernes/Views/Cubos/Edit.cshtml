@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Editar Cubo";
+    var imagenUrl = string.IsNullOrEmpty(Model.Imagen) || Model.Imagen.StartsWith("/") 
+        ? (Model.Imagen ?? "/images/cubos/default.jpg") 
+        : $"/images/cubos/{Model.Imagen}";
 }
 
 <div class="row">
@@ -28,24 +31,24 @@
             </div>
             
             <div class="mb-3">
-                <label class="form-label">Precio (€)</label>
+                <label class="form-label">Precio (Euros)</label>
                 <input type="number" name="Precio" class="form-control" value="@Model.Precio" required />
             </div>
             
             <div class="mb-3">
                 <label class="form-label">Imagen Actual</label><br/>
-                <img src="@Model.Imagen" alt="@Model.Nombre" style="max-width: 200px;" class="img-thumbnail mb-2" onerror="this.src='/images/cubos/default.jpg'" />
+                <img src="@imagenUrl" alt="@Model.Nombre" style="max-width: 200px; max-height: 200px;" class="img-thumbnail mb-2" />
             </div>
             
             <div class="mb-3">
                 <label class="form-label">Nueva Imagen (opcional)</label>
                 <input type="file" name="imagen" class="form-control" accept="image/*" />
-                <small class="form-text text-muted">Si no seleccionas una imagen, se mantendrá la actual</small>
+                <small class="form-text text-muted">Si no seleccionas una imagen, se mantendra la actual</small>
             </div>
             
             <div class="mt-4">
-                <button type="submit" class="btn btn-warning">?? Actualizar Cubo</button>
-                <a asp-action="Index" class="btn btn-secondary">? Cancelar</a>
+                <button type="submit" class="btn btn-warning">Actualizar Cubo</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
     </div>

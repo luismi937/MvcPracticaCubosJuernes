@@ -7,8 +7,8 @@
 
 <div class="row mb-4">
     <div class="col-md-12">
-        <h1 class="display-4">?? Carrito de Compras</h1>
-        <a asp-controller="Cubos" asp-action="Index" class="btn btn-secondary">?? Seguir Comprando</a>
+        <h1 class="display-4">Carrito de Compras</h1>
+        <a asp-controller="Cubos" asp-action="Index" class="btn btn-secondary">Seguir Comprando</a>
     </div>
 </div>
 
@@ -23,33 +23,38 @@
                             <tr>
                                 <th>Imagen</th>
                                 <th>Producto</th>
+                                <th>Modelo</th>
                                 <th>Marca</th>
                                 <th>Precio</th>
                                 <th>Cantidad</th>
                                 <th>Subtotal</th>
-                                <th>Acción</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
+                                var imagenUrl = string.IsNullOrEmpty(item.Cubo.Imagen) || item.Cubo.Imagen.StartsWith("/") 
+                                    ? (item.Cubo.Imagen ?? "/images/cubos/default.jpg") 
+                                    : $"/images/cubos/{item.Cubo.Imagen}";
+                                
                                 <tr>
                                     <td>
-                                        <img src="@item.Cubo.Imagen" alt="@item.Cubo.Nombre" style="width: 80px; height: 80px; object-fit: cover;" class="rounded" onerror="this.src='/images/cubos/default.jpg'">
+                                        <img src="@imagenUrl" alt="@item.Cubo.Nombre" style="width: 80px; height: 80px; object-fit: cover;" class="rounded">
                                     </td>
                                     <td class="align-middle">@item.Cubo.Nombre</td>
                                     <td class="align-middle">@item.Cubo.Modelo</td>
                                     <td class="align-middle">@item.Cubo.Marca</td>
-                                    <td class="align-middle">@item.Cubo.Precio €</td>
+                                    <td class="align-middle">@item.Cubo.Precio Euros</td>
                                     <td class="align-middle">
                                         <span class="badge bg-info text-dark">@item.Cantidad</span>
                                     </td>
-                                    <td class="align-middle fw-bold text-success">@item.Subtotal €</td>
+                                    <td class="align-middle fw-bold text-success">@item.Subtotal Euros</td>
                                     <td class="align-middle">
                                         <a asp-action="Eliminar" asp-route-id="@item.Cubo.IdCubo" 
                                            class="btn btn-danger btn-sm" 
-                                           onclick="return confirm('¿Eliminar este producto del carrito?')">
-                                            ??? Eliminar
+                                           onclick="return confirm('Eliminar este producto del carrito?')">
+                                            Eliminar
                                         </a>
                                     </td>
                                 </tr>
@@ -77,12 +82,12 @@
                     <hr/>
                     <div class="d-flex justify-content-between mb-3">
                         <h5>Total:</h5>
-                        <h5 class="text-success fw-bold">@total €</h5>
+                        <h5 class="text-success fw-bold">@total Euros</h5>
                     </div>
                     
                     <a asp-action="FinalizarCompra" class="btn btn-success w-100 btn-lg" 
-                       onclick="return confirm('¿Confirmar la compra?')">
-                        ?? Finalizar Compra
+                       onclick="return confirm('Confirmar la compra?')">
+                        Finalizar Compra
                     </a>
                 </div>
             </div>
@@ -92,8 +97,8 @@
 else
 {
     <div class="alert alert-warning">
-        <h4>Tu carrito está vacío</h4>
-        <p>No tienes productos en el carrito. Explora nuestro catálogo y añade tus cubos favoritos.</p>
-        <a asp-controller="Cubos" asp-action="Index" class="btn btn-primary">Ver Catálogo</a>
+        <h4>Tu carrito esta vacio</h4>
+        <p>No tienes productos en el carrito. Explora nuestro catalogo y anade tus cubos favoritos.</p>
+        <a asp-controller="Cubos" asp-action="Index" class="btn btn-primary">Ver Catalogo</a>
     </div>
 }

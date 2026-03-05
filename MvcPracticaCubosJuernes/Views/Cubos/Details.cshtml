@@ -2,18 +2,21 @@
 
 @{
     ViewData["Title"] = "Detalles del Cubo";
+    var imagenUrl = string.IsNullOrEmpty(Model.Imagen) || Model.Imagen.StartsWith("/") 
+        ? (Model.Imagen ?? "/images/cubos/default.jpg") 
+        : $"/images/cubos/{Model.Imagen}";
 }
 
 <div class="row">
     <div class="col-md-12 mb-3">
         <h1 class="display-4">Detalles del Cubo</h1>
-        <a asp-action="Index" class="btn btn-secondary">?? Volver al Listado</a>
+        <a asp-action="Index" class="btn btn-secondary">Volver al Listado</a>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <img src="@Model.Imagen" class="img-fluid rounded shadow" alt="@Model.Nombre" onerror="this.src='/images/cubos/default.jpg'">
+        <img src="@imagenUrl" class="img-fluid rounded shadow" alt="@Model.Nombre" style="width: 100%; height: auto;">
     </div>
     <div class="col-md-6">
         <div class="card">
@@ -24,15 +27,15 @@
                     <strong>ID:</strong> @Model.IdCubo<br/>
                     <strong>Modelo:</strong> @Model.Modelo<br/>
                     <strong>Marca:</strong> @Model.Marca<br/>
-                    <strong>Precio:</strong> <span class="text-success fw-bold fs-3">@Model.Precio €</span>
+                    <strong>Precio:</strong> <span class="text-success fw-bold fs-3">@Model.Precio Euros</span>
                 </p>
                 
                 <div class="mt-4">
-                    <a asp-action="Edit" asp-route-id="@Model.IdCubo" class="btn btn-warning">?? Editar</a>
-                    <a asp-controller="Carrito" asp-action="Agregar" asp-route-id="@Model.IdCubo" class="btn btn-success">?? Agregar al Carrito</a>
-                    <a asp-action="AgregarFavorito" asp-route-id="@Model.IdCubo" class="btn btn-outline-warning">? Favorito</a>
+                    <a asp-action="Edit" asp-route-id="@Model.IdCubo" class="btn btn-warning">Editar</a>
+                    <a asp-controller="Carrito" asp-action="Agregar" asp-route-id="@Model.IdCubo" class="btn btn-success">Agregar al Carrito</a>
+                    <a asp-action="AgregarFavorito" asp-route-id="@Model.IdCubo" class="btn btn-outline-warning">Favorito</a>
                     <a asp-action="Delete" asp-route-id="@Model.IdCubo" class="btn btn-danger" 
-                       onclick="return confirm('¿Estás seguro de eliminar este cubo?')">??? Eliminar</a>
+                       onclick="return confirm('Estas seguro de eliminar este cubo?')">Eliminar</a>
                 </div>
             </div>
         </div>
